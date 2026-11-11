@@ -48,7 +48,7 @@ const TONE_TINTS: Record<Tone, string> = {
 };
 
 function EmailPage() {
-  const ex = EMAIL_EXAMPLES[0];
+  const ex = EMAIL_EXAMPLES[0]!;
   const [input, setInput] = useState<EmailInput>({
     recipient: ex.recipient,
     sender: ex.sender,

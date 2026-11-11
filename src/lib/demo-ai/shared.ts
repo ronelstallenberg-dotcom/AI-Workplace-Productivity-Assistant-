@@ -3,7 +3,7 @@
 export function pick<T>(arr: readonly T[], seed: number, salt = 0): T {
   const n = arr.length;
   const i = ((((seed + salt) * 7 + seed * salt) % n) + n) % n;
-  return arr[i];
+  return arr[i] as T;
 }
 
 export function rotate<T>(arr: readonly T[], seed: number): T[] {
@@ -16,7 +16,7 @@ export function rotate<T>(arr: readonly T[], seed: number): T[] {
 export function lowerFirst(s: string): string {
   if (!s) return s;
   // Keep acronyms / proper nouns like "Q3" or "AI" intact.
-  if (s.length > 1 && /[A-Z0-9]/.test(s[1])) return s;
+  if (s.length > 1 && /[A-Z0-9]/.test(s.charAt(1))) return s;
   return s.charAt(0).toLowerCase() + s.slice(1);
 }
 

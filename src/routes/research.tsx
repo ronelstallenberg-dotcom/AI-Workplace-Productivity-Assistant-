@@ -43,7 +43,7 @@ export const Route = createFileRoute("/research")({
 function ResearchPage() {
   const [input, setInput] = useState<ResearchInput>({
     mode: "topic",
-    topic: RESEARCH_TOPIC_SUGGESTIONS[1],
+    topic: RESEARCH_TOPIC_SUGGESTIONS[1] ?? "",
     article: "",
     depth: "Detailed",
     audience: "Executive",
@@ -54,9 +54,14 @@ function ResearchPage() {
   const set = <K extends keyof ResearchInput>(k: K, v: ResearchInput[K]) => setInput((p) => ({ ...p, [k]: v }));
 
   const generate = (s = seed) => {
-    if (input.mode === "topic" && !input.topic.trim()) return toast.error("Enter a topic to research.");
-    if (input.mode === "article" && wordCount(input.article) < 40)
-      return toast.error("Paste an article of at least 40 words — or load the sample article.");
+    if (input.mode === "topic" && !input.topic.trim()) {
+      toast.error("Enter a topic to research.");
+      return;
+    }
+    if (input.mode === "article" && wordCount(input.article) < 40) {
+      toast.error("Paste an article of at least 40 words — or load the sample article.");
+      return;
+    }
     gen.run(generateResearch(input, s));
     recordActivity("research", input.mode === "topic" ? `Brief: ${input.topic.trim()}` : `Article: ${truncate(input.article, 48)}`);
   };

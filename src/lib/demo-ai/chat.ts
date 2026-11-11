@@ -56,7 +56,7 @@ export function detectIntent(message: string): ChatIntent {
 
 function extractTopic(msg: string): string {
   const m = msg.match(/\b(?:for|about|on|regarding|around)\s+(?:a |an |the |my |our )?(.+?)[?.!]*$/i);
-  return m ? stripEndPunct(m[1].trim()) : "";
+  return m?.[1] ? stripEndPunct(m[1].trim()) : "";
 }
 
 const LEADS = [

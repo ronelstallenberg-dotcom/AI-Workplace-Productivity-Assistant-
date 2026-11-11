@@ -85,7 +85,7 @@ function ChatPage() {
   const regenerate = (index: number) => {
     const bot = messages[index];
     const user = messages.slice(0, index).reverse().find((m) => m.role === "user");
-    if (!user || busy) return;
+    if (!bot || !user || busy) return;
     const seed = bot.seed + 1;
     patch(bot.id, { content: "", status: "thinking", seed, edited: false });
     respond(bot.id, user.content, seed);

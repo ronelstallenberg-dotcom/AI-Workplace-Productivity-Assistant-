@@ -29,11 +29,13 @@ function parse(text: string): Block[] {
     const ul = line.match(/^\s*[-•]\s+(.*)$/);
     const ol = line.match(/^\s*\d+[.)]\s+(.*)$/);
     if (ul) {
-      if (last?.type === "ul") last.items.push(ul[1]);
-      else blocks.push({ type: "ul", items: [ul[1]] });
+      const item = ul[1] ?? "";
+      if (last?.type === "ul") last.items.push(item);
+      else blocks.push({ type: "ul", items: [item] });
     } else if (ol) {
-      if (last?.type === "ol") last.items.push(ol[1]);
-      else blocks.push({ type: "ol", items: [ol[1]] });
+      const item = ol[1] ?? "";
+      if (last?.type === "ol") last.items.push(item);
+      else blocks.push({ type: "ol", items: [item] });
     } else if (line.startsWith("### ")) blocks.push({ type: "h3", text: line.slice(4) });
     else if (line.startsWith("## ")) blocks.push({ type: "h2", text: line.slice(3) });
     else if (line.startsWith("# ")) blocks.push({ type: "h1", text: line.slice(2) });
